@@ -4,15 +4,14 @@ import path from 'path';
 import { defineConfig } from 'vite';
 export default defineConfig(() => {
   return {
-    root: 'frontend',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './frontend/src'),
+        '@': path.resolve(__dirname, './src'),
       },
     },
     build: {
-      outDir: '../dist',
+      outDir: 'dist',
       emptyOutDir: true,
     },
     server: {
