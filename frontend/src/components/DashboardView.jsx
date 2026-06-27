@@ -11,6 +11,7 @@ import {
   AlertOctagon,
   ListTodo,
   CalendarRange,
+  Mic,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 export default function DashboardView({
@@ -42,6 +43,58 @@ export default function DashboardView({
 
   // Chat message input
   const [chatInput, setChatInput] = useState('');
+
+  // Voice Assistance State
+  const [isListening, setIsListening] = useState(false);
+  const [recognition, setRecognition] = useState(null);
+  const [voiceError, setVoiceError] = useState(null);
+
+  // Initialize Web Speech API
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const rec = new SpeechRecognition();
+      rec.continuous = false;
+      rec.interimResults = false;
+      rec.lang = 'en-US';
+      rec.onstart = () => { setIsListening(true); setVoiceError(null); };
+      rec.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        if (transcript) {
+          setChatInput((prev) => (prev ? prev + ' ' + transcript : transcript));
+        }
+      };
+      rec.onerror = (event) => {
+        console.warn('Speech recognition parameter error:', event.error);
+        setIsListening(false);
+        if (event.error === 'not-allowed') {
+          setVoiceError('Microphone permission blocked. Please grant mic permission in your browser.');
+        } else if (event.error === 'no-speech') {
+          setVoiceError('No speech detected. Please speak clearly.');
+        } else {
+          setVoiceError(`Speech error detected: ${event.error}`);
+        }
+      };
+      rec.onend = () => { setIsListening(false); };
+      setRecognition(rec);
+    }
+  }, []);
+
+  const toggleListening = () => {
+    if (!recognition) {
+      setVoiceError('Speech Recognition is not supported on this browser.');
+      return;
+    }
+    if (isListening) {
+      recognition.stop();
+    } else {
+      try {
+        recognition.start();
+      } catch (err) {
+        console.error('Failed to start speech recognition:', err);
+      }
+    }
+  };
 
   // Daily Habits State
   const [habits, setHabits] = useState([]);
@@ -672,6 +725,23 @@ export default function DashboardView({
               </button>
             </div>
 
+            {/* VOICE ASSISTANCE ERROR BANNER */}
+            {voiceError && (
+              <div className="mx-4 mb-2 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[10px] text-amber-200 font-mono flex items-start justify-between gap-2.5 shrink-0">
+                <div className="flex gap-2">
+                  <span className="text-amber-400 font-black">ℹ️</span>
+                  <span className="leading-relaxed">{voiceError}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setVoiceError(null)}
+                  className="text-slate-500 hover:text-slate-200 cursor-pointer font-black text-xs px-1"
+                >
+                  ×
+                </button>
+              </div>
+            )}
+
             {/* Prompt input field */}
             <form
               onSubmit={handleChatSubmit}
@@ -681,10 +751,19 @@ export default function DashboardView({
                 type="text"
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
-                placeholder="Ask Sentry to organize or Calibrate..."
-                className="flex-1 px-3 py-2 bg-slate-950 text-slate-200 text-xs rounded-xl border border-white/5 focus:outline-none focus:border-indigo-500 transition-colors"
+                placeholder={isListening ? "🎤 Listening to your voice..." : "Ask Sentry to organize or Calibrate..."}
+                className={`flex-1 px-3 py-2 bg-slate-950 text-xs rounded-xl border transition-all duration-300 focus:outline-none ${isListening ? 'border-rose-500/80 text-rose-300 bg-rose-950/10 ring-2 ring-rose-500/20 placeholder:text-rose-400/70' : 'border-white/5 text-slate-200 focus:border-indigo-500 placeholder:text-slate-500'}`}
                 disabled={isAgentThinking}
               />
+              <button
+                type="button"
+                onClick={toggleListening}
+                disabled={isAgentThinking}
+                className={`px-3 py-2 rounded-xl border flex items-center justify-center shrink-0 cursor-pointer transition-all duration-300 ${isListening ? 'bg-rose-500/15 border-rose-500/40 text-rose-400 animate-pulse shadow-md shadow-rose-500/20' : 'bg-slate-920 border-slate-900 hover:border-indigo-500/30 text-slate-400 hover:text-indigo-400'}`}
+                title={isListening ? 'Click to stop dictation' : 'Click to dictate command via Microphone'}
+              >
+                {isListening ? <Mic className="w-4 h-4 animate-bounce text-rose-450" /> : <Mic className="w-4 h-4" />}
+              </button>
               <button
                 type="submit"
                 disabled={isAgentThinking || !chatInput.trim()}
