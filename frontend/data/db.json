@@ -1,0 +1,263 @@
+{
+  "tasks": [
+    {
+      "id": "task-1782542907908",
+      "title": "Book Flight to Paris",
+      "category": "General",
+      "deadline": "Today, 11:59 PM",
+      "stressScore": 72,
+      "complexity": 3,
+      "suggestedTimeSlot": "01:00 PM - 02:00 PM",
+      "completed": false,
+      "breakdownSteps": [
+        "Search for available flights to Paris departing tomorrow",
+        "Compare flight times, airlines, and prices",
+        "Select the best flight option and enter passenger details",
+        "Complete the payment and secure the booking confirmation"
+      ],
+      "breakdownCompleted": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "estimatedMinutes": 30
+    },
+    {
+      "id": "t1",
+      "title": "Deliver Final Pitch Deck to Venture Partners",
+      "category": "Work",
+      "deadline": "Today, 5:00 PM",
+      "stressScore": 94,
+      "completed": false,
+      "estimatedMinutes": 90,
+      "breakdownSteps": [
+        "Refine the financial growth chart with corrected Q2 projections",
+        "Script the 3-minute opening hook addressing market size shifts",
+        "Export secure PDF and verify slide transitions on mobile screens"
+      ],
+      "breakdownCompleted": [
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": "t2",
+      "title": "Resolve critical database locks in staging environment",
+      "category": "Engineering",
+      "deadline": "Today, 7:30 PM",
+      "stressScore": 82,
+      "completed": false,
+      "estimatedMinutes": 60,
+      "breakdownSteps": [
+        "Analyze Postgres active query logs to localize blocking transactions",
+        "Draft a migration to introduce proper composite indexes and optimize query execution planner",
+        "Deploy index changes and verify transaction latencies fall back below 50ms"
+      ],
+      "breakdownCompleted": [
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": "t3",
+      "title": "Finalize quarterly internal tax reviews",
+      "category": "Finance",
+      "deadline": "Rescheduled - Tomorrow",
+      "stressScore": 19,
+      "completed": false,
+      "estimatedMinutes": 120,
+      "breakdownSteps": [
+        "Collate SaaS infrastructure expense receipts from AWS & Stripe",
+        "Compile contractor hour reports and update master ledger",
+        "Sign and upload Form 1099 equivalents under safe harbor standards"
+      ],
+      "breakdownCompleted": [
+        false,
+        false,
+        false
+      ],
+      "panicRescheduled": true
+    },
+    {
+      "id": "t4",
+      "title": "Pre-schedule Q3 team performance synchronization sessions",
+      "category": "People",
+      "deadline": "Rescheduled - Tomorrow",
+      "stressScore": 12,
+      "completed": false,
+      "estimatedMinutes": 45,
+      "breakdownSteps": [
+        "Draft evaluation feedback bullets focusing on scope ownership and communication",
+        "Create custom calendar booking invite slots via shared calendar",
+        "Share brief goal-setting pre-reads to prompt collaborative alignment"
+      ],
+      "breakdownCompleted": [
+        false,
+        false,
+        false
+      ],
+      "panicRescheduled": true
+    },
+    {
+      "id": "t5",
+      "title": "Review production pull-request for auth middleware standard",
+      "category": "Code",
+      "deadline": "In 3 Days",
+      "stressScore": 22,
+      "completed": true,
+      "estimatedMinutes": 30,
+      "breakdownSteps": [
+        "Inspect JSON Web Token validation headers and claim expirations",
+        "Verify unit testing suite retains coverage on expired refresh tokens",
+        "Approve and request staging staging deploy trigger"
+      ],
+      "breakdownCompleted": [
+        true,
+        true,
+        true
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "id": "s1",
+      "title": "Deep Work: Pitch Deck Finalization",
+      "time": "09:00 AM - 10:30 AM",
+      "duration": "1.5 hrs",
+      "type": "deep-work",
+      "accentColor": "indigo",
+      "description": "Focus solely on refining market projections and slide animations without notifications."
+    },
+    {
+      "id": "s2",
+      "title": "AI Shielded Time: Focus Block",
+      "time": "11:00 AM - 12:00 PM",
+      "duration": "1 hr",
+      "type": "shielded",
+      "accentColor": "emerald",
+      "description": "Incoming notification redirection active. Priority communication filtered through assistant."
+    },
+    {
+      "id": "s3",
+      "title": "Decompression & Breathing Sprint",
+      "time": "12:30 PM - 01:00 PM",
+      "duration": "30 mins",
+      "type": "decompression",
+      "accentColor": "amber",
+      "description": "Tactical mental reboot. Standard notification and messaging silencing block."
+    },
+    {
+      "id": "s4",
+      "title": "🛡️ AI Protected Defense Slot",
+      "time": "02:00 PM - 03:00 PM",
+      "duration": "1 hr",
+      "type": "shielded",
+      "accentColor": "rose",
+      "description": "Rescheduled block due to panic triage."
+    },
+    {
+      "id": "s5",
+      "title": "Autonomous Clean-up Block",
+      "time": "04:00 PM - 05:00 PM",
+      "duration": "1 hr",
+      "type": "deep-work",
+      "accentColor": "indigo",
+      "description": "Secondary workspace organization and minor task cleanup."
+    },
+    {
+      "id": "block-sync-1782542639106",
+      "title": "🎯 Deliver Final Pitch Deck to Venture Partners",
+      "time": "03:00 PM - 04:00 PM",
+      "duration": "1 hr",
+      "type": "deep-work",
+      "accentColor": "indigo",
+      "description": "Scheduled via Rescue CoPilot. Subtasks: Refine the financial growth chart with corrected Q2 projections -> Script the 3-minute opening hook addressing market size shifts -> Export secure PDF and verify slide transitions on mobile screens"
+    },
+    {
+      "id": "block-sync-1782542647573",
+      "title": "🎯 Deliver Final Pitch Deck to Venture Partners",
+      "time": "03:00 PM - 04:00 PM",
+      "duration": "1 hr",
+      "type": "deep-work",
+      "accentColor": "indigo",
+      "description": "Scheduled via Rescue CoPilot. Subtasks: Refine the financial growth chart with corrected Q2 projections -> Script the 3-minute opening hook addressing market size shifts -> Export secure PDF and verify slide transitions on mobile screens"
+    }
+  ],
+  "habits": [
+    {
+      "id": "hab-1",
+      "label": "Inhaled Breathing Cycles",
+      "done": true,
+      "points": 15,
+      "key": "breath",
+      "streak": 8,
+      "lastCompletedDate": "2026-06-22T10:00:00Z"
+    },
+    {
+      "id": "hab-2",
+      "label": "25m Focus Sprint Block",
+      "done": false,
+      "points": 25,
+      "key": "sprint",
+      "streak": 3
+    },
+    {
+      "id": "hab-3",
+      "label": "Slack Shield Silence",
+      "done": false,
+      "points": 20,
+      "key": "slack",
+      "streak": 5
+    },
+    {
+      "id": "hab-4",
+      "label": "No-Meeting Tactical Buffers",
+      "done": true,
+      "points": 15,
+      "key": "buffer",
+      "streak": 7,
+      "lastCompletedDate": "2026-06-22T12:00:00Z"
+    },
+    {
+      "id": "hab-5",
+      "label": "Hydration Intake Cycle",
+      "done": false,
+      "points": 10,
+      "key": "hydrate",
+      "streak": 12
+    },
+    {
+      "id": "hab-6",
+      "label": "Inbox Decongestion",
+      "done": false,
+      "points": 15,
+      "key": "inbox",
+      "streak": 2
+    }
+  ],
+  "user": {
+    "userName": "Pankaj",
+    "email": "",
+    "stressTolerance": "moderate",
+    "notifications": [
+      "System initial defense shield initialized.",
+      "G-Cal Sync Success: \"Deliver Final Pitch Deck to Venture Partners\" is now mapped onto your schedule block at 03:00 PM - 04:00 PM!",
+      "G-Cal Sync Success: \"Deliver Final Pitch Deck to Venture Partners\" is now mapped onto your schedule block at 03:00 PM - 04:00 PM!"
+    ]
+  },
+  "aiLogs": [
+    {
+      "timestamp": "2026-06-27T06:48:27.909Z",
+      "prompt": "Extract task from NLP: \"Book a flight to Paris for tomorrow\"",
+      "response": "{\"id\":\"task-1782542907908\",\"title\":\"Book Flight to Paris\",\"category\":\"General\",\"deadline\":\"Today, 11:59 PM\",\"stressScore\":72,\"complexity\":3,\"suggestedTimeSlot\":\"01:00 PM - 02:00 PM\",\"completed\":false,\"breakdownSteps\":[\"Search for available flights to Paris departing tomorrow\",\"Compare flight times, airlines, and prices\",\"Select the best flight option and enter passenger details\",\"Complete the payment and secure the booking confirmation\"],\"breakdownCompleted\":[false,false,false,false],\"estimatedMinutes\":30}"
+    },
+    {
+      "timestamp": "2026-06-27T07:12:40.418Z",
+      "prompt": "fuck u",
+      "response": "{\n  \"analysis\": \"User is experiencing extreme frustration and high cognitive load with multiple critical deadlines looming within the next few hours.\",\n  \"stressScore\": 95,\n  \"agentNudge\": \"I hear you. You are under immense pressure right now. Let's cut through the noise: I have completely cleared your afternoon and set up a 3-hour AI Protected Deep Block starting at 1:00 PM. We are going to focus 100% on getting that Pitch Deck out the door by 5:00 PM, then we will tackle the database locks. Take a deep breath—I have got your back.\",\n  \"focusSprintTriggered\": false,\n  \"panicModeTriggered\": true,\n  \"tasksToAdd\": [],\n  \"tasksToModify\": [\n    {\n      \"id\": \"t4\",\n      \"deadline\": \"In 4 Days\",\n      \"panicRescheduled\": true,\n      \"stressScore\": 10\n    },\n    {\n      \"id\": \"t3\",\n      \"deadline\": \"Tomorrow, 3:00 PM\",\n      \"panicRescheduled\": true,\n      \"stressScore\": 50\n    }\n  ],\n  \"timelineToReplace\": [\n    {\n      \"title\": \"🛡️ AI Protected Deep Block\",\n      \"time\": \"01:00 PM - 04:00 PM\",\n      \"duration\": \"3 hrs\",\n      \"type\": \"shielded\",\n      \"accentColor\": \"rose\",\n      \"description\": \"All non-essential notifications silenced. Focus entirely on finishing the Pitch Deck and staging database locks.\",\n      \"id\": \"panic-shield-block\"\n    },\n    {\n      \"title\": \"🎯 Pitch Deck Submission & Buffer\",\n      \"time\": \"04:00 PM - 05:00 PM\",\n      \"duration\": \"1 hr\",\n      \"type\": \"deep-work\",\n      \"accentColor\": \"emerald\",\n      \"description\": \"Final review, export secure PDF, and submit to Venture Partners before the 5:00 PM deadline.\",\n      \"id\": \"panic-submission-block\"\n    },\n    {\n      \"title\": \"Decompression & Tactical Reboot\",\n      \"time\": \"05:00 PM - 05:30 PM\",\n      \"duration\": \"30 mins\",\n      \"type\": \"decompression\",\n      \"accentColor\": \"amber\",\n      \"description\": \"Step away from the screen. Reset before tackling the staging database locks.\",\n      \"id\": \"panic-reboot-block\"\n    },\n    {\n      \"title\": \"🔧 Staging Database Lock Resolution\",\n      \"time\": \"05:30 PM - 07:00 PM\",\n      \"duration\": \"1.5 hrs\",\n      \"type\": \"deep-work\",\n      \"accentColor\": \"indigo\",\n      \"description\": \"Analyze Postgres logs and deploy composite indexes to resolve staging locks before 7:30 PM.\",\n      \"id\": \"panic-db-block\"\n    }\n  ]\n}"
+    }
+  ]
+}
