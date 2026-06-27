@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "node backend/server.js",
-    "build": "vite build && esbuild backend/server.js --bundle --platform=node --format=esm --packages=external --sourcemap --outfile=dist/server.js",
+    "build": "vite build",
+    "build:full": "vite build && esbuild backend/server.js --bundle --platform=node --format=esm --packages=external --sourcemap --outfile=dist/server.js",
     "start": "node dist/server.js",
     "preview": "vite preview",
     "clean": "rm -rf dist"

@@ -17,8 +17,8 @@ const ai = new GoogleGenAI({
     },
   },
 });
+const app = express();
 async function startServer() {
-  const app = express();
   const PORT = 3000;
   app.use(express.json());
 
@@ -1220,10 +1220,13 @@ Format your response as strict JSON representing:
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(
-      `Rescue CoPilot Server initialized on http://localhost:${PORT}`,
-    );
-  });
+  if (!process.env.VERCEL) {
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(
+        `Rescue CoPilot Server initialized on http://localhost:${PORT}`,
+      );
+    });
+  }
 }
 startServer();
+export default app;
