@@ -1,22 +1,27 @@
 import express from 'express';
 import path from 'path';
-import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI, Type } from '@google/genai';
 import dotenv from 'dotenv';
 import { db } from './db.js';
 dotenv.config();
 
 /**
- * Initialize Gemini SDK using server-side key
+ * Initialize Gemini SDK using server-side key safely
  */
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  httpOptions: {
-    headers: {
-      'User-Agent': 'aistudio-build',
+let ai = null;
+try {
+  ai = new GoogleGenAI({
+    apiKey: process.env.GEMINI_API_KEY || 'MISSING_API_KEY', // Fallback string to prevent hard crash
+    httpOptions: {
+      headers: {
+        'User-Agent': 'aistudio-build',
+      },
     },
-  },
-});
+  });
+} catch (err) {
+  console.error("Gemini failed to initialize:", err);
+}
+
 const app = express();
 async function startServer() {
   const PORT = 3000;
@@ -473,6 +478,8 @@ Identify:
 1. The absolute #1 most urgent task they must accomplish first.
 2. A single concise, punchy recommendation to conquer procrastination today.
 `;
+      if (!ai) throw new Error("Gemini API key is not configured.");
+      
       const responseSchema = {
         type: Type.OBJECT,
         properties: {
@@ -682,6 +689,10 @@ Identify:
       const { audioBase64, mimeType } = req.body;
       if (!audioBase64 || !mimeType) {
         return res.status(400).json({ success: false, error: 'Audio data or MIME type missing' });
+      }
+      
+      if (!ai) {
+        return res.status(500).json({ success: false, error: 'Gemini AI is not initialized. Please configure GEMINI_API_KEY in Vercel Environment Variables.' });
       }
 
       const response = await ai.models.generateContent({
@@ -901,6 +912,8 @@ Latest User Instruction: "${message}"
 
 Process this input against the System Instructions and return the structured JSON output.
 `;
+      if (!ai) throw new Error("Gemini API key is not configured.");
+      
       const response = await ai.models.generateContent({
         model: 'gemini-3.5-flash',
         contents: userPromptText,
@@ -1236,8 +1249,9 @@ Format your response as strict JSON representing:
 
   // Vite Middleware for Dev and Fallbacks for Production
   if (process.env.NODE_ENV !== 'production') {
+    const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
-      root: 'frontend',
+      root: process.cwd(),
       configFile: path.resolve(process.cwd(), 'vite.config.js'),
       server: {
         middlewareMode: true,
