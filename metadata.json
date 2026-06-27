@@ -1,0 +1,10 @@
+{
+  "name": "Remix: Last-Minute Life Saver",
+  "description": "An AI-powered agentic productivity suite designed to prioritize tasks, optimize calendars, and execute fast plans to rescue your deadlines.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
