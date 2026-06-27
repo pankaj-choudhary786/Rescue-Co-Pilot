@@ -178,7 +178,7 @@ Extract the structured parameters:
         let data = {};
         try {
           const response = await ai.models.generateContent({
-            model: 'gemini-2.0-flash',
+            model: 'gemini-1.5-flash-8b',
             contents: promptText,
             config: {
               systemInstruction:
@@ -262,7 +262,7 @@ Extract the structured parameters:
         let suggestedTimeSlot = '02:00 PM - 03:00 PM';
         try {
           const textResponse = await ai.models.generateContent({
-            model: 'gemini-2.0-flash',
+            model: 'gemini-1.5-flash-8b',
             contents: stepsPrompt,
             config: {
               systemInstruction:
@@ -496,7 +496,7 @@ Identify:
         required: ['headline', 'briefText', 'primaryFocusTaskId'],
       };
       const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-1.5-flash-8b',
         contents: promptText,
         config: {
           systemInstruction: systemBriefPrompt,
@@ -696,7 +696,7 @@ Identify:
       }
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-1.5-flash-8b',
         contents: [
           {
             inlineData: {
@@ -915,7 +915,7 @@ Process this input against the System Instructions and return the structured JSO
       if (!ai) throw new Error("Gemini API key is not configured.");
       
       const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-1.5-flash-8b',
         contents: userPromptText,
         config: {
           systemInstruction: systemInstruction,
@@ -1054,7 +1054,7 @@ Format your response as strict JSON representing:
       let parsed = {};
       try {
         const response = await ai.models.generateContent({
-          model: 'gemini-2.0-flash',
+          model: 'gemini-1.5-flash-8b',
           contents: `Spoken Dictation: "${commandText}"`,
           config: {
             systemInstruction: systemCommandInstruction,
@@ -1133,7 +1133,7 @@ Format your response as strict JSON representing:
         let suggestedTimeSlot = '03:00 PM - 04:00 PM';
         try {
           const textRes = await ai.models.generateContent({
-            model: 'gemini-2.0-flash',
+            model: 'gemini-1.5-flash-8b',
             contents: stepsPrompt,
             config: {
               responseMimeType: 'application/json',
