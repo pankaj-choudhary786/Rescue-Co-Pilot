@@ -1251,8 +1251,8 @@ Format your response as strict JSON representing:
   if (process.env.NODE_ENV !== 'production') {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
-      root: process.cwd(),
-      configFile: path.resolve(process.cwd(), 'vite.config.js'),
+      root: path.join(process.cwd(), 'frontend'),
+      configFile: path.resolve(process.cwd(), 'frontend', 'vite.config.js'),
       server: {
         middlewareMode: true,
       },

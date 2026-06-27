@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "node api/index.js",
-    "build": "vite build",
-    "build:full": "vite build && esbuild api/index.js --bundle --platform=node --format=esm --packages=external --sourcemap --outfile=dist/server.js",
+    "build": "vite build frontend",
+    "build:full": "vite build frontend && esbuild api/index.js --bundle --platform=node --format=esm --packages=external --sourcemap --outfile=dist/server.js",
     "start": "node dist/server.js",
-    "preview": "vite preview",
+    "preview": "vite preview frontend",
     "clean": "rm -rf dist"
   },
   "dependencies": {
