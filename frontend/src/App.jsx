@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { INITIAL_TASKS, INITIAL_SCHEDULE } from './data/mockData.js';
+import { INITIAL_TASKS, INITIAL_SCHEDULE } from '@/data/mockData.js';
 
 // Importing custom components
 import LandingPage from './components/LandingPage';
