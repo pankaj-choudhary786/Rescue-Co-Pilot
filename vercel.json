@@ -1,11 +1,6 @@
 {
   "version": 2,
-  "functions": {
-    "backend/server.js": {
-      "runtime": "@vercel/node@5",
-      "includeFiles": "data/**"
-    }
-  },
+
   "routes": [
     {
       "src": "/api/(.*)",
