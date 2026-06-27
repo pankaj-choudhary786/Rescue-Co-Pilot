@@ -44,55 +44,69 @@ export default function DashboardView({
   // Chat message input
   const [chatInput, setChatInput] = useState('');
 
-  // Voice Assistance State
+  // Voice Assistance State (Custom Gemini MediaRecorder Pipeline)
   const [isListening, setIsListening] = useState(false);
-  const [recognition, setRecognition] = useState(null);
+  const [mediaRecorder, setMediaRecorder] = useState(null);
   const [voiceError, setVoiceError] = useState(null);
 
-  // Initialize Web Speech API
-  useEffect(() => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition) {
-      const rec = new SpeechRecognition();
-      rec.continuous = false;
-      rec.interimResults = false;
-      rec.lang = 'en-US';
-      rec.onstart = () => { setIsListening(true); setVoiceError(null); };
-      rec.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        if (transcript) {
-          setChatInput((prev) => (prev ? prev + ' ' + transcript : transcript));
-        }
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream);
+      const audioChunks = [];
+      recorder.ondataavailable = (e) => {
+        if (e.data.size > 0) audioChunks.push(e.data);
       };
-      rec.onerror = (event) => {
-        console.warn('Speech recognition parameter error:', event.error);
-        setIsListening(false);
-        if (event.error === 'not-allowed') {
-          setVoiceError('Microphone permission blocked. Please grant mic permission in your browser.');
-        } else if (event.error === 'no-speech') {
-          setVoiceError('No speech detected. Please speak clearly.');
-        } else {
-          setVoiceError(`Speech error detected: ${event.error}`);
-        }
+      recorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunks, { type: recorder.mimeType });
+        const reader = new FileReader();
+        reader.readAsDataURL(audioBlob);
+        reader.onloadend = async () => {
+          const base64data = reader.result.split(',')[1];
+          try {
+            setVoiceError('Transcribing via Gemini AI...');
+            const res = await fetch('/api/transcribe', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ audioBase64: base64data, mimeType: recorder.mimeType })
+            });
+            const data = await res.json();
+            if (data.success && data.text) {
+              setChatInput((prev) => (prev ? prev + ' ' + data.text : data.text));
+              setVoiceError(null);
+            } else if (!data.success) {
+              setVoiceError('Transcription failed: ' + (data.error || 'Unknown error'));
+            } else {
+              setVoiceError('No speech was detected by AI.');
+              setTimeout(() => setVoiceError(null), 3000);
+            }
+          } catch (err) {
+            setVoiceError('Transcription network error: ' + err.message);
+          }
+        };
       };
-      rec.onend = () => { setIsListening(false); };
-      setRecognition(rec);
+      recorder.start();
+      setMediaRecorder(recorder);
+      setIsListening(true);
+      setVoiceError(null);
+    } catch (err) {
+      setVoiceError('Microphone access denied: ' + err.message);
     }
-  }, []);
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+      mediaRecorder.stop();
+      mediaRecorder.stream.getTracks().forEach((track) => track.stop());
+    }
+    setIsListening(false);
+  };
 
   const toggleListening = () => {
-    if (!recognition) {
-      setVoiceError('Speech Recognition is not supported on this browser.');
-      return;
-    }
     if (isListening) {
-      recognition.stop();
+      stopRecording();
     } else {
-      try {
-        recognition.start();
-      } catch (err) {
-        console.error('Failed to start speech recognition:', err);
-      }
+      startRecording();
     }
   };
 

@@ -676,6 +676,38 @@ Identify:
     }
   });
 
+  // 10.5. POST /api/transcribe: Gemini Audio Transcription Fallback
+  app.post('/api/transcribe', async (req, res) => {
+    try {
+      const { audioBase64, mimeType } = req.body;
+      if (!audioBase64 || !mimeType) {
+        return res.status(400).json({ success: false, error: 'Audio data or MIME type missing' });
+      }
+
+      const response = await ai.models.generateContent({
+        model: 'gemini-1.5-flash',
+        contents: [
+          {
+            inlineData: {
+              data: audioBase64,
+              mimeType: mimeType,
+            },
+          },
+          'Transcribe this audio precisely. Do not add any extra commentary. If there is no speech, return an empty string.',
+        ],
+        config: {
+          temperature: 0.1,
+        }
+      });
+      
+      const text = response.text || '';
+      res.json({ success: true, text: text.trim() });
+    } catch (err) {
+      console.error('Gemini Transcription Error:', err);
+      res.status(500).json({ success: false, error: err.message });
+    }
+  });
+
   // 11. Main Agent Interactive chat evaluator
   app.post('/api/chat', async (req, res) => {
     try {
